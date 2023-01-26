@@ -4,7 +4,12 @@
 namespace App\Models;
 
 
-class Article
-{
+use App\Model;
 
+class Article extends Model
+{
+    public $title;
+    public $content;
+
+    const TABLE = 'news';
 }
