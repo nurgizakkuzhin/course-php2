@@ -25,4 +25,11 @@ class Model
         $result = $db->query($sql, [':id' => $id], static::class);
         return $result[0];
     }
+
+    public static function findByLast($limit = 3)
+    {
+        $db = new Db();
+        $sql = 'SELECT * FROM ' . static::TABLE . ' ORDER BY id DESC LIMIT ' . $limit;
+        return $db->query($sql, [], static::class);
+    }
 }
