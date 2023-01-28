@@ -4,7 +4,7 @@
 namespace App;
 
 
-class Model
+abstract class Model
 {
     public $id;
 
@@ -31,5 +31,64 @@ class Model
         $db = new Db();
         $sql = 'SELECT * FROM ' . static::TABLE . ' ORDER BY id DESC LIMIT ' . $limit;
         return $db->query($sql, [], static::class);
+    }
+
+    public function insert()
+    {
+        $props = get_object_vars($this);
+        $columns = [];
+        $binds = [];
+        $data = [];
+        foreach ($props as $name => $value) {
+            if ($name === 'id') {
+                continue;
+            }
+            $columns[] = $name;
+            $binds[] = ':' . $name;
+            $data[':' . $name] = $value;
+        }
+        $sql = 'INSERT INTO ' . static::TABLE . ' 
+        (' . implode(', ', $columns) . ') 
+        VALUES (' . implode(', ', $binds) . ')';
+
+        $db = new Db();
+        $db->execute($sql, $data);
+        $this->id = $db->getLastId();
+    }
+
+    public function update()
+    {
+        $props = get_object_vars($this);
+        $columns = [];
+        $binds = [];
+        $data = [];
+        foreach ($props as $columns => $value) {
+            $data[':' . $columns] = $value;
+            if ($columns === 'id') {
+                continue;
+            }
+            $binds[] = $columns . '=:' . $columns;
+        }
+        $sql = 'UPDATE ' . static::TABLE . ' SET ' . implode(', ', $binds) . ' WHERE id=:id';
+
+        $db = new Db();
+        $db->query($sql, $data, static::class);
+    }
+
+    public function delete()
+    {
+        $data = [':id' => $this->id];
+        $db = new Db();
+        $sql = 'DELETE FROM ' . static::TABLE . ' WHERE id=:id';
+        $db ->execute($sql, $data);
+    }
+
+    public function save()
+    {
+        if (empty($this->id)) {
+            $this->insert();
+        } else {
+            $this->update();
+        }
     }
 }

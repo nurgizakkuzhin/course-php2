@@ -10,11 +10,11 @@ class Db
 
     public function __construct()
     {
-        $configDb = (include __DIR__ . '/config.php')['db'];
+        $config = Config::instance();
         $this->dbh = new \PDO(
-            'mysql:host=' . $configDb['host'] . ';dbname=' . $configDb['dbname'],
-            $configDb['user'],
-            $configDb['password']
+            'mysql:host=' . $config->data['db']['host'] . ';dbname=' . $config->data['db']['dbname'],
+            $config->data['db']['user'],
+            $config->data['db']['password']
         );
     }
 
@@ -34,5 +34,10 @@ class Db
             return true;
         }
         return false;
+    }
+
+    public function getLastId()
+    {
+        return $this->dbh->lastInsertId();
     }
 }

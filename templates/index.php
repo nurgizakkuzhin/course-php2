@@ -14,6 +14,7 @@
     <div class="row gy-5" id="menu">
         <div class="col">
             <a href="/" class="btn btn-outline-secondary">Новости</a>
+            <a href="/admin" class="btn btn-outline-success">Админ</a>
         </div>
     </div>
     <hr>

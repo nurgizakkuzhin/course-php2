@@ -2,6 +2,9 @@
 
 require __DIR__ . '/autoload.php';
 
-$articles = \App\Models\Article::findByLast();
+use \App\Models\Article;
 
-include __DIR__ . '/templates/news.php';
+$articles = Article::findAll();
+
+include __DIR__ . '/templates/index.php';
+
