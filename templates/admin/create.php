@@ -19,7 +19,7 @@
     <hr>
     <div class="row">
         <div class="col">
-            <form action="/admin/create.php" method="post" enctype="multipart/form-data">
+            <form action="/admin/create.php" method="post">
                 <div class="form-group">
                     <input class="form-control" type="text" name="title" placeholder="Заголовок новости">
                 </div>

@@ -3,8 +3,9 @@
 require __DIR__ . '/autoload.php';
 
 use \App\Models\Article;
+use \App\View;
 
-$articles = Article::findAll();
+$view = new View();
+$view->articles = Article::findAll();
 
-include __DIR__ . '/templates/index.php';
-
+$view->display(__DIR__ . '/templates/index.php');

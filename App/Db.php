@@ -3,7 +3,12 @@
 
 namespace App;
 
-
+/**
+ * Class Db
+ * @package App
+ *
+ * @property object $dbh
+ */
 class Db
 {
     protected $dbh;

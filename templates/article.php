@@ -18,16 +18,21 @@
     </div>
     <hr>
     <?php
-    if (false !== $article) {
+    if (false !== $this->article) {
         ?>
         <div class="row">
             <div class="col">
-                <h6><?php echo $article->title; ?></h6>
+                <h6><?php echo $this->article->title; ?></h6>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <p><?php echo $article->content; ?></p>
+                <blockquote class="blockquote">
+                    <p class="mb-0"><?php echo $this->article->content; ?></p>
+                    <?php if (isset($this->article->author)) : ?>
+                        <footer class="blockquote-footer"><?php echo $this->article->author->author; ?></footer>
+                    <?php endif; ?>
+                </blockquote>
             </div>
         </div>
         <?php

@@ -3,7 +3,12 @@
 
 namespace App;
 
-
+/**
+ * Class Model
+ * @package App
+ *
+ * @property int $id
+ */
 abstract class Model
 {
     public $id;
@@ -33,7 +38,7 @@ abstract class Model
         return $db->query($sql, [], static::class);
     }
 
-    public function insert()
+    protected function insert()
     {
         $props = get_object_vars($this);
         $columns = [];
@@ -56,7 +61,7 @@ abstract class Model
         $this->id = $db->getLastId();
     }
 
-    public function update()
+    protected function update()
     {
         $props = get_object_vars($this);
         $columns = [];
@@ -85,10 +90,10 @@ abstract class Model
 
     public function save()
     {
-        if (empty($this->id)) {
-            $this->insert();
-        } else {
+        if (isset($this->id)) {
             $this->update();
+        } else {
+            $this->insert();
         }
     }
 }

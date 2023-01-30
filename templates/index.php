@@ -22,7 +22,7 @@
         <div class="card-header">
             Новости
         </div>
-    <?php foreach ($articles as $article): ?>
+    <?php foreach ($this->articles as $article): ?>
         <div class="card-body">
             <h5 class="card-title"><a href="/article.php?id=<?php echo $article->id;?>"><?php echo $article->title; ?></a></h5>
             <p class="card-text"><?php echo mb_substr($article->content, 0, 150) . '...'; ?></p>
